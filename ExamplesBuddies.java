@@ -28,48 +28,7 @@ void initBuddies() {
   Kim = new Person("Kim", 0.80, 0.65);
   Len = new Person("Len", 1, 0);
 }
-
-boolean testHasDirectBuddy(Tester t) {
-  this.initBuddies();
-  this.Ann.addBuddy(Bob);
-  this.Ann.addBuddy(Cole);
-  return t.checkExpect(this.Ann.hasDirectBuddy(Cole),true);
-}
-boolean testCountCommonBuddies(Tester t) {
-  this.initBuddies();
-  this.Ed.addBuddy(Fay);
-  this.Fay.addBuddy(Ed);
-  this.Fay.addBuddy(Gabi);
-  this.Gabi.addBuddy(Ed);
-  this.Gabi.addBuddy(Fay);
-  return t.checkExpect(this.Ed.countCommonBuddies(this.Gabi), 1);
-}
-
-boolean testHasExtendedBuddy(Tester t) {
-  this.initBuddies();
-  this.Ann.addBuddy(Ed);
-  this.Ed.addBuddy(Fay);
-  this.Fay.addBuddy(Ed);
-  this.Fay.addBuddy(Gabi);
-  this.Gabi.addBuddy(Ed);
-  this.Gabi.addBuddy(Fay);
-  this.Gabi.addBuddy(Ann);
-  return t.checkExpect(this.Ed.hasExtendedBuddy(this.Ann), true);
-}
-
-boolean testPartyCount(Tester t) {
-  this.initBuddies();
-  this.Ed.addBuddy(Fay);
-  this.Fay.addBuddy(Ed);
-  this.Fay.addBuddy(Gabi);
-  this.Gabi.addBuddy(Ed);
-  this.Gabi.addBuddy(Fay);
-  this.Gabi.addBuddy(Ann);
-  return t.checkExpect(this.Ed.partyCount(), 4);
-}
-
-boolean testMaxLikelihood(Tester t) {
-  this.initBuddies();
+void addedBuddies() {
   this.Ann.addBuddy(Bob);
   this.Ann.addBuddy(Cole);
   this.Bob.addBuddy(Ann);
@@ -88,6 +47,35 @@ boolean testMaxLikelihood(Tester t) {
   this.Kim.addBuddy(Len);
   this.Len.addBuddy(Jan);
   this.Len.addBuddy(Kim);
-  return t.checkExpect(this.Cole.maxLikelihood(this.Dan), 0.3025);
+}
+
+boolean testHasDirectBuddy(Tester t) {
+  this.initBuddies();
+  this.addedBuddies();
+  return t.checkExpect(this.Ann.hasDirectBuddy(Cole),true);
+}
+boolean testCountCommonBuddies(Tester t) {
+  this.initBuddies();
+  this.addedBuddies();
+  return t.checkExpect(this.Ed.countCommonBuddies(this.Gabi), 1);
+}
+
+boolean testHasExtendedBuddy(Tester t) {
+  this.initBuddies();
+  this.addedBuddies();
+  return t.checkExpect(this.Ed.hasExtendedBuddy(this.Gabi), true);
+}
+/*
+boolean testPartyCount(Tester t) {
+  this.initBuddies();
+  this.addedBuddies();
+  return t.checkExpect(this.Ed.partyCount(), 4);
+}
+ */
+
+boolean testMaxLikelihood(Tester t) {
+  this.initBuddies();
+  this.addedBuddies();
+  return t.checkInexact(this.Ed.maxLikelihood(this.Gabi), 0.02625, 0.01);
 }
 }

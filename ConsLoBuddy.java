@@ -34,16 +34,24 @@ class ConsLoBuddy implements ILoBuddy {
             return this.first.buddies.hasExtendedBuddyHelper(that, visited);
         }
     }
-    public double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double maxVal) {
-        if (this.contains(that)) {
-            if ((this.first.dictionScore * that.hearingScore) > maxVal) {
-                maxVal = this.first.dictionScore * that.hearingScore;
-            } else {
-                return
+    public double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double currVal, double maxVal) {
+        if (visited.contains(this.first)) {
+            return this.rest.maxLikelihoodHelper(a, that, visited, currVal, maxVal);
+        } else {
+            if (this.first == that) {
+                if (currVal * that.hearingScore > maxVal) {
+                    maxVal = currVal * that.hearingScore;
+                }
             }
-
-        } else if (visited.contains(this.first)) {
-            return this.rest.maxLikelihoodHelper(a, that, visited, maxVal)
+            if (this.first.hasDirectBuddy(that)) {
+                if (this.first.dictionScore * that.hearingScore * currVal * this.first.hearingScore > maxVal) {
+                    maxVal = this.first.dictionScore * that.hearingScore * currVal * this.first.hearingScore;
+                } return this.rest.maxLikelihoodHelper(a, that, new ConsLoBuddy(this.first, visited), currVal, maxVal);
+                }
+            } if (this.first.hasExtendedBuddy(that)) {
+                return this.first.buddies.maxLikelihoodHelper(a, that, new ConsLoBuddy(this.first, visited), this.first.dictionScore, maxVal);
+            } else {
+                return this.rest.maxLikelihoodHelper(a, that, new ConsLoBuddy(this.first, visited), currVal, maxVal);
+            }
         }
     }
-}

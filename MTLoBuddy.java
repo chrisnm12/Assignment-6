@@ -14,7 +14,7 @@ class MTLoBuddy implements ILoBuddy {
     public boolean hasExtendedBuddyHelper(Person that, ILoBuddy visited) {
         return false;
     }
-    public double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double maxVal) {
-        return 0;
+    public double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double currVal, double maxVal) {
+        return maxVal;
     }
 }

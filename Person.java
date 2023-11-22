@@ -51,7 +51,7 @@ class Person {
 
     double maxLikelihood(Person that) {
         if (this.hasExtendedBuddy(that)) {
-            return this.buddies.maxLikelihoodHelper(this, that, new MTLoBuddy(), 0);
+            return this.buddies.maxLikelihoodHelper(this, that, new MTLoBuddy(), this.dictionScore, 0);
         } else {
             return 0;
         }

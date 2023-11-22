@@ -5,5 +5,5 @@ interface ILoBuddy {
   int length();
   int countCommonBuddiesHelper(ILoBuddy lob, int n);
   boolean hasExtendedBuddyHelper(Person that, ILoBuddy visited);
-  double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double maxVal);
+  double maxLikelihoodHelper(Person a, Person that, ILoBuddy visited, double currVal, double maxVal);
 }
